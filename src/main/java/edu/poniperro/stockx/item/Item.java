@@ -7,6 +7,10 @@ public interface Item {
 
     int getBid();
 
+    int getAsk();
+
+    int getSale();
+
     public void setBid(int bid);
 
     void add(Offer offer);

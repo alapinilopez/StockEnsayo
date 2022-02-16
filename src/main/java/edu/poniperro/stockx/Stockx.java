@@ -1,31 +1,31 @@
 package edu.poniperro.stockx;
 
-import edu.poniperro.stockx.item.Bid;
-import edu.poniperro.stockx.item.Item;
-import edu.poniperro.stockx.item.Sneaker;
-import edu.poniperro.stockx.item.Offer;
+import edu.poniperro.stockx.criteria.Asks;
+import edu.poniperro.stockx.criteria.Bids;
+import edu.poniperro.stockx.criteria.Criteria;
+import edu.poniperro.stockx.item.*;
 
 /**
  * StockX nació en Detroit, y allí siguen haciendo
  * las cosas a la manera tradicional,
  * robustas y con alma, en ASCII en la CLI.
- *
+ * <p>
  * Implementa las historias de usuario
  * de las GUI proporcionadas, pero en ASCII.
- *
+ * <p>
  * La lógica tras cada historia de usuario
  * está descrita en el `main` de la clase
  * principal `Stockx.java`.
- *
+ * <p>
  * Si tienes dudas, puedes interactuar con
  * la webapp based in London que sí que tiene (G)UI
  * https://stockx.com/air-jordan-1-retro-high-dark-mocha
  */
 
 
-public class Stockx<bid> {
+public class Stockx {
 
-    public static void main(String[] args) {
+    public static String main(String[] args) {
 
         /**
          * Crear la zapatilla
@@ -36,24 +36,57 @@ public class Stockx<bid> {
          * de la zapatilla han de printarse.
          */
 
-        Item sneaker = (Item) new Sneaker("555088-105", "Jordan 1 Retro High Dark Mocha");
+        Item sneaker = new Sneaker("555088-105", "Jordan 1 Retro High Dark Mocha");
         /*System.out.println(Stockx.draw(sneaker));*/
-    }
 
-    /**
-     * Crear bids
-     * y añadirlas a la zapatilla
-     * en sus offers.
-     */
 
-     Bid bid = new Bid("13", 550);
+        /**
+         * Crear bids
+         * y añadirlas a la zapatilla
+         * en sus offers.
+         */
+
+        Bid bid = new Bid("13", 550);
         sneaker.add(bid);
         sneaker.add(new Bid("6", 200));
         sneaker.add(new Bid("9.5", 479));
         sneaker.add(new Bid("13", 338));
         sneaker.add(new Bid("9.5", 480));
 
-  /*  public static String draw(Item sneaker) {
+        /**
+         * Crear asks
+         * y añadirlas a la zapatilla
+         * en sus offers.
+         */
+
+        Ask ask = new Ask("13", 288);
+        sneaker.add(ask);
+        sneaker.add(new Ask("6", 600));
+        sneaker.add(new Ask("9.5", 333));
+        sneaker.add(new Ask("9.5", 340));
+        sneaker.add(new Ask("13", 330));
+
+        /**
+         * Crear el filtro "Bids" que filtra
+         * solo las bids de entre las
+         * offers de la zapatilla.
+         */
+
+        Criteria bids = new Bids();
+        System.out.println("\n\t\t All BIDS");
+        bids.checkCriteria(sneaker).forEach(System.out::print);
+
+        /**
+         * Crea el filtro "Asks" que filtra
+         * solo las asks de entre las
+         * offers de la zapatilla.
+         */
+
+        Criteria asks = new Asks();
+        System.out.println("\n\t\t All ASKS");
+        asks.checkCriteria(sneaker).forEach(System.out::print);
+
+    public static String draw(Item sneaker) {
         return
                 "\n\n\t\t" + sneaker.getAsk() + " Buy\t"
                         + sneaker.getBid() + " Sell \n" +
@@ -67,5 +100,6 @@ public class Stockx<bid> {
 
                         "\t" + sneaker.toString() + "\n" +
                         "\t\tlast sale: " + sneaker.getSale();
-    }*/
+    }
+    }
 }
