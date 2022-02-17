@@ -5,16 +5,17 @@ import edu.poniperro.stockx.item.Item;
 import edu.poniperro.stockx.item.Offer;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-public class Asks implements Criteria{
-    public Asks() {}
+public class MinAsk implements Criteria{
+    public MinAsk (){}
 
+    @Override
     public List<Offer> checkCriteria(Item sneaker) {
-        return sneaker.offers().
+        Optional<Offer> min =  sneaker.offers().
                 stream().
                 filter(o -> o instanceof Ask).
-                sorted().
-                collect(Collectors.toList());
+                min(Offer::compareTo);
+        return min.map(List::of).orElseGet(List::of);
     }
 }

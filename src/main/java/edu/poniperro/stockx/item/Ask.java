@@ -24,4 +24,9 @@ public class Ask implements Offer {
     public int compareTo(Offer ask) {
         return this.ask.compareTo(ask.value());
     }
+
+    @Override
+    public String toString() {
+        return "\t\t" + this.size() + "\t" + this.value() +"\n";
+    }
 }

@@ -13,6 +13,8 @@ public interface Item {
 
     public void setBid(int bid);
 
+    public void setAsk(int ask);
+
     void add(Offer offer);
 
     List<Offer> offers();

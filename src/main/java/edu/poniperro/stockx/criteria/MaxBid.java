@@ -5,17 +5,18 @@ import edu.poniperro.stockx.item.Item;
 import edu.poniperro.stockx.item.Offer;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-public class Bids implements Criteria {
+public class MaxBid implements Criteria{
+    public MaxBid () {}
 
-    public Bids() {}
     @Override
     public List<Offer> checkCriteria(Item sneaker) {
-        return sneaker.offers().
+        Optional<Offer> max = sneaker.offers().
                 stream().
                 filter(o -> o instanceof Bid).
-                sorted(Offer::compareTo).
-                collect(Collectors.toList());
+                max(Offer::compareTo);
+
+        return max.map(List::of).orElseGet(List::of);
     }
 }
